@@ -45,7 +45,7 @@ keys = [
     Key([mod], "r", lazy.spawncmd()),
 ]
 
-groups = [Group(str(i)) for i in range(0, 4)]
+groups = [Group(str(i)) for i in range(0, 7)]
 
 for i in groups:
     # mod1 + letter of group = switch to group
@@ -76,27 +76,41 @@ screens = [
             [
                 widget.CurrentLayout(),
                 widget.TextBox('|'),
-                widget.LaunchBar([('Firefox', 'firefox', 'Web browser')]),
+                widget.LaunchBar([
+                    ('Firefox', 'Application/firefox/firefox', 'Web browser'),
+                    ('PyCharm', 'Application/pycharm-2016.3/bin/pycharm.sh', 'Editor'),
+                ]),
                 widget.Prompt(),
                 widget.Spacer(),
                 widget.Volume(),
                 widget.TextBox('|'),
-                widget.Clock(format='%d-%m-%Y %a %H:%M %p')
+                widget.Clock(format='%d-%m-%Y %a %H:%M %p'),
             ],
-            25
+            25,
+            background=["#042a2b"],
         ),
         bottom=bar.Bar(
             [
                 widget.GroupBox(),
-                widget.WindowName(),
+                widget.WindowName(foreground="#eeeeee"),
                 widget.Systray(),
                 widget.CPUGraph(),
                 widget.MemoryGraph(),
                 widget.NetGraph(),
+                widget.CurrentScreen(),
             ],
-            25,
+            size=25,
+            background="#042a2b",
+            foreground="#00ff00",
         ),
-    ),
+    ), Screen(bottom=bar.Bar(
+        [
+            widget.AGroupBox(),
+        ]
+    ,25,
+    background="#042a2b",
+    foreground="#eeeeee",
+    )),
 ]
 
 # Drag floating layouts.
