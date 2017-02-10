@@ -15,6 +15,11 @@ keys = [
 
     # Switch window focus to other pane(s) of stack
     Key([mod], "space", lazy.layout.next()),
+   
+    # Floating window
+    Key([mod], "f", lazy.window.toggle_floating()),
+    # Fullscreen window
+    Key([mod], "m", lazy.window.toggle_fullscreen()),
 
     # Swap panes of split stack
     Key([mod, "shift"], "space", lazy.layout.rotate()),
@@ -36,6 +41,8 @@ keys = [
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
     Key([mod], "w", lazy.window.kill()),
+    Key([mod], "Page_Up", lazy.to_screen(1)),
+    Key([mod], "Page_Down", lazy.to_screen(0)),
 
     # Restart Qtile
     Key([mod, "control"], "r", lazy.restart()),
@@ -45,7 +52,7 @@ keys = [
     Key([mod], "r", lazy.spawncmd()),
 ]
 
-groups = [Group(str(i)) for i in range(0, 7)]
+groups = [Group(str(i)) for i in range(0, 8)]
 
 for i in groups:
     # mod1 + letter of group = switch to group
@@ -82,6 +89,8 @@ screens = [
                 ]),
                 widget.Prompt(),
                 widget.Spacer(),
+                widget.Systray(),
+                widget.TextBox('|'),
                 widget.Volume(),
                 widget.TextBox('|'),
                 widget.Clock(format='%d-%m-%Y %a %H:%M %p'),
@@ -93,7 +102,6 @@ screens = [
             [
                 widget.GroupBox(),
                 widget.WindowName(foreground="#eeeeee"),
-                widget.Systray(),
                 widget.CPUGraph(),
                 widget.MemoryGraph(),
                 widget.NetGraph(),
@@ -105,6 +113,8 @@ screens = [
         ),
     ), Screen(bottom=bar.Bar(
         [
+            widget.CurrentLayout(),
+            widget.TextBox('|'),
             widget.AGroupBox(),
         ]
     ,25,
