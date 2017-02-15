@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget
@@ -38,6 +40,9 @@ keys = [
     ),
     Key([mod], "Return", lazy.spawn('terminator')),
 
+    # Lock screen
+    Key([mod], "l", lazy.spawn('gnome-screensaver-command -l')),
+
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout()),
     Key([mod], "w", lazy.window.kill()),
@@ -68,7 +73,8 @@ for i in groups:
 layouts = [
     layout.Max(),
     layout.Stack(),
-    layout.Tile()
+    layout.Tile(),
+    layout.Matrix(),
 ]
 
 widget_defaults = dict(
