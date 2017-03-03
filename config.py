@@ -2,8 +2,7 @@
 
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
-from libqtile import layout, bar, widget
-
+from libqtile import layout, bar, widget, hook
 mod = "mod4"
 
 keys = [
@@ -117,17 +116,7 @@ screens = [
             background="#042a2b",
             foreground="#00ff00",
         ),
-    ), Screen(bottom=bar.Bar(
-        [
-            widget.CurrentLayout(),
-            widget.TextBox('|'),
-            widget.AGroupBox(),
-        ]
-    ,25,
-    background="#042a2b",
-    foreground="#eeeeee",
-    )),
-]
+    ), ]
 
 # Drag floating layouts.
 mouse = [
@@ -158,3 +147,26 @@ extentions = []
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
 wmname = "LG3D"
+
+
+@hook.subscribe.screen_change
+def restart_on_randr(qtile, ev):
+    qtile.cmd_restart()
+
+
+def detect_screens(qtile):
+    while len(screens) < len(qtile.conn.pseudoscreens):
+        screens.append(
+            Screen(bottom=bar.Bar([
+                widget.CurrentLayout(),
+                widget.TextBox('|'),
+                widget.AGroupBox(),
+            ]
+            ,25,
+            background="#042a2b",
+            foreground="#eeeeee",
+            ))
+        )
+
+def main(qtile):
+    detect_screens(qtile)
