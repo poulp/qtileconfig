@@ -3,6 +3,7 @@
 from libqtile.config import Key, Screen, Group, Drag, Click
 from libqtile.command import lazy
 from libqtile import layout, bar, widget, hook
+
 mod = "mod4"
 
 keys = [
@@ -16,7 +17,7 @@ keys = [
 
     # Switch window focus to other pane(s) of stack
     Key([mod], "space", lazy.layout.next()),
-   
+
     # Floating window
     Key([mod], "f", lazy.window.toggle_floating()),
     # Fullscreen window
@@ -89,13 +90,15 @@ screens = [
                 widget.CurrentLayout(),
                 widget.TextBox('|'),
                 widget.LaunchBar([
-                    ('Firefox', 'Application/firefox/firefox', 'Web browser'),
-                    ('PyCharm', 'Application/pycharm-2016.3/bin/pycharm.sh', 'Editor'),
+                    ('Firefox', 'firefox', 'Web browser'),
+                    ('PyCharm', 'Application/pycharm-2017.1.3/bin/pycharm.sh', 'Editor'),
                 ]),
+                widget.TextBox('|'),
                 widget.Prompt(),
                 widget.Spacer(),
                 widget.Systray(),
                 widget.TextBox('|'),
+                #widget.TaskList(),
                 widget.Volume(),
                 widget.TextBox('|'),
                 widget.Clock(format='%d-%m-%Y %a %H:%M %p'),
@@ -121,9 +124,9 @@ screens = [
 # Drag floating layouts.
 mouse = [
     Drag([mod], "Button1", lazy.window.set_position_floating(),
-        start=lazy.window.get_position()),
+         start=lazy.window.get_position()),
     Drag([mod], "Button3", lazy.window.set_size_floating(),
-        start=lazy.window.get_size()),
+         start=lazy.window.get_size()),
     Click([mod], "Button2", lazy.window.bring_to_front())
 ]
 
@@ -162,9 +165,9 @@ def detect_screens(qtile):
                 widget.TextBox('|'),
                 widget.AGroupBox(),
             ]
-            ,25,
-            background="#042a2b",
-            foreground="#eeeeee",
+                ,25,
+                background="#042a2b",
+                foreground="#eeeeee",
             ))
         )
 
